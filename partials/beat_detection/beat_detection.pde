@@ -15,6 +15,7 @@ import ddf.minim.analysis.*;
 Minim minim;
 AudioPlayer song;
 BeatDetect beat;
+AudioInput input;
 
 float eRadius;
 
@@ -22,23 +23,23 @@ void setup()
 {
   size(200, 200, P3D);
   minim = new Minim(this);
-  song = minim.loadFile("marcus_kellis_theme.mp3", 2048);
-  song.play();
+  input = minim.getLineIn(Minim.STEREO, int(8192));
   // a beat detection object song SOUND_ENERGY mode with a sensitivity of 10 milliseconds
   beat = new BeatDetect();
   
   ellipseMode(RADIUS);
-  eRadius = 20;
+  eRadius = 60;
 }
 
 void draw()
 {
   background(0);
-  beat.detect(song.mix);
-  float a = map(eRadius, 20, 80, 60, 255);
-  fill(60, 255, 0, a);
-  if ( beat.isOnset() ) eRadius = 80;
+  //beat.detect(song.mix);
+  beat.detect(input.mix);
+  
+  fill(0);
+  if ( beat.isOnset() ) fill(255);
   ellipse(width/2, height/2, eRadius, eRadius);
-  eRadius *= 0.95;
-  if ( eRadius < 20 ) eRadius = 20;
+  
+  
 }
