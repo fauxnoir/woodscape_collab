@@ -1,8 +1,10 @@
+import g4p_controls.*;
 import codeanticode.syphon.*;
 
 // syphon
 PGraphics canvas;
 SyphonServer server;
+GWindow renderWindow;
 
 // list of our sketches
 ArrayList<SketchBase> sketches;
@@ -19,6 +21,9 @@ void setup() {
   // set canvas size and 3d rendering mode
   canvas = createGraphics(1280, 720, P3D);
 
+
+  renderWindow = GWindow.getWindow(this, "Resizeable 3D window", 0, 0, 240, 180, P3D);
+
   // create syhpon server to send frames out
   server = new SyphonServer(this, "Processing Syphon");
 
@@ -26,6 +31,7 @@ void setup() {
   sketches = new ArrayList<SketchBase>();
   sketches.add(new RedCircleSketch(this, canvas));
   sketches.add(new BlueSquareSketch(this, canvas));
+  sketches.add(new HypeTestSketch(this, canvas));
 
   // calling the initialization function on each applet in the list
   for(SketchBase s : sketches) {
@@ -55,6 +61,9 @@ void keyPressed() {
   }
   if(key == '1') {
     selected = 1;
+  }
+  if(key == '2') {
+    selected = 2;
   }
 
   println(sketches.get(selected).name);
