@@ -14,48 +14,51 @@ void setup() {
   smooth(4);
   noStroke();
   background(0);
-    
+
+  // print relative path to track.mp3
+  println(sketchPath("track.mp3"));
+
   // Create an Input stream which is routed into the Amplitude analyzer
   fft = new FFT(this, bands);
-  file = new SoundFile(this, "/Users/matthias/Documents/Processing/woodscape_collab/partials/FFT_organic_visual/track.mp3");
-  
+  file = new SoundFile(this, sketchPath("track.mp3"));
+
   // start the Audio Input
   file.play();
-  
+
   // patch the AudioIn
   fft.input(file);
-}      
+}
 
-void draw() { 
+void draw() {
   fill(0,10);
   rect(0,0,width,height);
   fft.analyze(spectrum);
   int interpolateCount = 4;
   float dAngle = (float) bands / 45;
   float angle = 0;
-  
- 
+
+
 
   for(int i = 0; i < bands / 16; i++){
-    
+
     float dRadius = 60 + spectrum[i]*200;
     float nextRadius = 60 + spectrum[i + 1]*200;
     float diffRadius = (nextRadius - dRadius) / (interpolateCount + 1);
-    
+
     for(int u = 0; u < interpolateCount + 1; u++){
       float useR = dRadius + (u * diffRadius);
-    
+
       float x1 = calculateX(useR, angle);
       float y1 = calculateY(useR, angle);
-      
+
       float x2 = calculateX(-useR, angle);
       float y2 = calculateY(-useR, angle);
-       
+
        drawLineFromLastPoint(x1, y1);
        drawPoints(x1, y1, x2, y2);
        angle += (dAngle / (interpolateCount + 1));
     }
-  } 
+  }
 }
 float calculateX(float radiusOffset, float angle) {
   return (cos(radians(angle)) * (radius + radiusOffset)) + (width/2);
