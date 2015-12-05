@@ -12,7 +12,7 @@ public class RedCircleSketch extends SketchBase
   }
 
   @Override
-  public void draw() {
+  public void draw(BeatDetect beatDetect) {
     canvas.noStroke();
     canvas.background(255);
     canvas.fill(255,0,0);

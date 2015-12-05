@@ -12,5 +12,5 @@ public class SketchBase
 
   public void init() {};
 
-  public void draw() {};
+  public void draw(BeatDetect beatDetect) {};
 }

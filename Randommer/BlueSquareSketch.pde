@@ -1,5 +1,4 @@
-public class BlueSquareSketch extends SketchBase
-{
+public class BlueSquareSketch extends SketchBase {
   private PVector p;
 
   public BlueSquareSketch(PApplet parent, PGraphics canvas) {
@@ -12,7 +11,7 @@ public class BlueSquareSketch extends SketchBase
   }
 
   @Override
-  public void draw() {
+  public void draw(BeatDetect beatDetect) {
     canvas.background(255);
     canvas.stroke(0,0,255);
     canvas.fill(255);
